@@ -42,11 +42,38 @@ export class AuthService {
     });
 
     return {
-      token: token,
+      token,
       user: {
         id,
         email: savedUser.email,
         username: savedUser.username,
+      }
+    }
+  }
+
+  // Fungsi login
+  async login(email: string, password: string): Promise<{ token: string; user: { id: string; email: string; username: string; } }> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new BadRequestException('Invalid email');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new BadRequestException('Invalid password');
+    }
+
+    const id = this.hashids.encode(user.id);
+    const token = jwt.sign({ id, email: user.email, username: user.username }, this.jwtSecret, {
+      expiresIn: '1h',
+    });
+
+    return {
+      token,
+      user: {
+        id,
+        email: user.email,
+        username: user.username,
       }
     }
   }
