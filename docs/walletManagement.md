@@ -5,7 +5,7 @@
 Endpoint : POST /wallet/create
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Request Body :
 ```json
@@ -37,7 +37,7 @@ Response Body Error (400 Bad Request) :
 Endpoint : GET /wallet/balance/:walletId
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Response Body Success (200 OK) : 
 ```json
@@ -62,7 +62,7 @@ Response Body Error (404 Not Found) :
 Endpoint : GET /wallet/list
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Response Body Success (200 OK) : 
 ```json
@@ -96,7 +96,7 @@ Response Body Error (401 Unauthorized) :
 Endpoint : DELETE /wallet/:walletId
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Response Body Success (200 OK) : 
 ```json

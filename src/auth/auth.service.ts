@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
@@ -11,13 +11,12 @@ import Hashids from 'hashids';
 export class AuthService {
   private readonly jwtSecret: string;
   private readonly hashids: Hashids;
-
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private configService: ConfigService,
   ) {
     this.jwtSecret = this.configService.get<string>('JWT_SECRET');
-    this.hashids = new Hashids(this.jwtSecret, 10, 'abcdefghijklmnopqrstuvwxyz1234567890');
+    this.hashids = new Hashids(this.configService.get<string>('HASHIDS_SALT'), 10, 'abcdefghijklmnopqrstuvwxyz1234567890');
   }
 
   // Fungsi register
@@ -55,12 +54,12 @@ export class AuthService {
   async login(email: string, password: string): Promise<{ token: string; user: { id: string; email: string; username: string; } }> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
-      throw new BadRequestException('Invalid email');
+      throw new UnauthorizedException('Invalid email');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new BadRequestException('Invalid password');
+      throw new UnauthorizedException('Invalid password');
     }
 
     const id = this.hashids.encode(user.id);
@@ -78,5 +77,5 @@ export class AuthService {
     }
   }
 
-  
+
 }

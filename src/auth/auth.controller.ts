@@ -1,4 +1,5 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Request, Body, Post, Get, Patch, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { RegisterDto, LoginDto } from './auth.dto';
 
@@ -10,7 +11,7 @@ export class AuthController {
   async register(@Body() RegisterDto: RegisterDto) {
     const response = await this.authService.register(RegisterDto.email, RegisterDto.username, RegisterDto.password);
     return {
-      data: response
+      data: response,
     };
   }
 
@@ -18,8 +19,18 @@ export class AuthController {
   async login(@Body() LoginDto: LoginDto) {
     const response = await this.authService.login(LoginDto.email, LoginDto.password);
     return {
-      data: response
+      data: response,
     };
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('me')
+  Me(@Request() req) {
+    const response = { user: req.user };
+    return {  
+      data: response,
+    };
+  }
+
 
 }

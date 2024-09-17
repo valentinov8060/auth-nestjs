@@ -5,7 +5,7 @@
 Endpoint : GET /transaction/history/:walletId
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Response Body Success (200 OK) : 
 ```json
@@ -43,7 +43,7 @@ Response Body Error (404 Not Found) :
 Endpoint : POST /transaction/send
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Request Body :
 ```json
@@ -79,7 +79,7 @@ Response Body Error (400 Bad Request) :
 Endpoint : POST /transaction/receive
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Request Body :
 ```json
@@ -115,7 +115,7 @@ Response Body Error (404 Not Found) :
 Endpoint : DELETE /transaction/cancel/:transactionId
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Response Body Success (200 OK) : 
 ```json

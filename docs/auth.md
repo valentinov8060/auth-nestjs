@@ -67,12 +67,39 @@ Response Body Error (401 Unauthorized) :
 }
 ```
 
-## 3. Update Auth API
+## 3. Me Auth API
+
+Endpoint : GET /auth/me
+
+Headers :
+- Authorization : Bearer token
+
+Response Body Success (200 OK) :
+```json
+{
+  "data" : {
+    "user": {
+      "id": "6wopd62vz5",
+      "email": "user@example.com",
+      "username" : "valentinov8060",
+    }
+  }
+}
+```
+
+Response Body Error (401 Unauthorized) : 
+```json
+{
+  "error" : "Unauthorized"
+}
+```
+
+## 4. Update Auth API
 
 Endpoint : PATCH /auth/update
 
 Headers :
-- Authorization : token 
+- Authorization : Bearer token 
 
 Request Body :
 ```json
@@ -98,54 +125,6 @@ Response Body Success (200 OK) :
 Response Body Error (400 Bad Request) : 
 ```json
 {
-  "error" : "Userame length max 100"
-}
-```
-
-## 4. Me Auth API
-
-Endpoint : GET /auth/me
-
-Headers :
-- Authorization : token
-
-Response Body Success (200 OK) :
-```json
-{
-  "data" : {
-    "user": {
-      "id": "6wopd62vz5",
-      "email": "user@example.com",
-      "username" : "valentinov8060",
-    }
-  }
-}
-```
-
-Response Body Error (401 Unauthorized) : 
-```json
-{
-  "error" : "Unauthorized"
-}
-```
-
-## 5. Logout Auth API
-
-Endpoint : DELETE /auth/logout 
-
-Headers :
-- Authorization : token
-
-Response Body Success (200 OK) : 
-```json
-{
-  "data": "Logout successful"
-}
-```
-
-Response Body Error (401 Unauthorized) : 
-```json
-{
-  "error" : "Unauthorized"
+  "error" : "Username length max 100"
 }
 ```
