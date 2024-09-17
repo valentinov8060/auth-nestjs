@@ -113,6 +113,7 @@ Response Body Success (200 OK) :
 ```json
 {
   "data" : {
+    "token" : "unique-token",
     "user": {
       "id": "6wopd62vz5",
       "email": "user@example.com",

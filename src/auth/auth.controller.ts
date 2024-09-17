@@ -1,7 +1,7 @@
 import { Controller, Request, Body, Post, Get, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { RegisterDto, LoginDto } from './auth.dto';
+import { RegisterDto, LoginDto, UpdateDto } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +32,13 @@ export class AuthController {
     };
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Patch('update')
+  async update(@Request() req, @Body() UpdateDto: UpdateDto) {
+    const response = await this.authService.update(req.user, UpdateDto);
+    return {
+      data: response,
+    };
+  }
 
 }

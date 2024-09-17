@@ -77,5 +77,51 @@ export class AuthService {
     }
   }
 
+  // Fungsi update
+  async update(user: any, reqBody: { username?: string; password?: string }) {
+    const { username, password } = reqBody;
+
+    // Decode the user ID from the token
+    const [idDecoded] = this.hashids.decode(user.id);
+    const userId = Number(idDecoded);
+    if (!userId) {
+      throw new BadRequestException('Invalid user ID');
+    }
+
+    // Fetch the current user from the database
+    const userToUpdate = await this.userRepository.findOne({ where: { id: userId } });
+
+    if (!userToUpdate) {
+      throw new BadRequestException('User not found');
+    }
+
+    // Update username if provided
+    if (username) {
+      userToUpdate.username = username;
+    }
+
+    // Update password if provided
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      userToUpdate.password = hashedPassword;
+    }
+
+    // Save updated user to the database
+    const updatedUser = await this.userRepository.save(userToUpdate);
+
+    // Generate a new JWT token with updated user information
+    const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email, username: updatedUser.username }, this.jwtSecret, { 
+      expiresIn: '1h' 
+    });
+
+    return {
+      token,
+      user: {
+        id: user.id,
+        email: updatedUser.email,
+        username: updatedUser.username,
+      },
+    };
+  }
 
 }
