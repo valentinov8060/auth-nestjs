@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsEmail, MinLength, MaxLength, Matches } from 'class-validator';
+import { IsOptional, IsNotEmpty, IsString, IsEmail, MinLength, MaxLength, Matches } from 'class-validator';
 
 class RegisterDto {
   @IsNotEmpty()
@@ -37,11 +37,13 @@ class LoginDto {
 }
 
 class UpdateDto {
+  @IsOptional()
   @IsString()
   @MinLength(4, { message: 'Username must be at least 4 characters long' })
   @MaxLength(20, { message: 'Username cannot be longer than 20 characters' })
   username: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(8, { message: 'Password must be at least 8 characters long' })
   @MaxLength(32, { message: 'Password cannot be longer than 32 characters' })

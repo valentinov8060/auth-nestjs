@@ -19,6 +19,7 @@ Response Body Success (201 Created) :
 {
   "data" : {
     "walletId": "abcd1234",
+    "name" : "wallet name",
     "address": "1BitcoinAddress",
     "balance": 0
   }
@@ -32,9 +33,9 @@ Response Body Error (400 Bad Request) :
 }
 ```
 
-## 2. Get Wallet Balance API
+## 2. Get Wallet API
 
-Endpoint : GET /wallet/balance/:walletId
+Endpoint : GET /wallet/:walletId
 
 Headers :
 - Authorization : Bearer token 
@@ -44,6 +45,7 @@ Response Body Success (200 OK) :
 {
   "data" : {
     "walletId": "abcd1234",
+    "name" : "wallet name",
     "address": "1BitcoinAddress",
     "balance": 0.5 // dalam Bitcoin
   }
@@ -70,15 +72,15 @@ Response Body Success (200 OK) :
   "data": [
     {
       "walletId": "abcd1234",
-      "name": "My Bitcoin Wallet",
-      "balance": 0.5,
-      "address": "1BitcoinAddress"
+      "name" : "wallet name",
+      "address": "1BitcoinAddress",
+      "balance": 0.1
     },
     {
-      "walletId": "efgh5678",
-      "name": "Second Bitcoin Wallet",
-      "balance": 0.1,
-      "address": "1SecondBitcoinAddress"
+      "walletId": "abcd1234",
+      "name" : "wallet name",
+      "address": "1BitcoinAddress",
+      "balance": 0.4
     }
   ]
 }

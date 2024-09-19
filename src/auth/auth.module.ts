@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
+// module
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
-import { User } from '../entity/user.entity';
+// provider
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from '../jwt-auth.guard';
+// controller
 import { AuthController } from './auth.controller';
-import { JwtAuthGuard } from './jwt-auth.guard';
+// entity
+import { User } from '../entity';
 
 @Module({
   imports: [

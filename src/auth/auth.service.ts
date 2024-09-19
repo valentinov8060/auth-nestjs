@@ -1,8 +1,11 @@
 import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+// provider
 import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import { User } from '../entity/user.entity';
+// entity
+import { User } from '../entity';
+// library
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import Hashids from 'hashids';
@@ -90,7 +93,6 @@ export class AuthService {
 
     // Fetch the current user from the database
     const userToUpdate = await this.userRepository.findOne({ where: { id: userId } });
-
     if (!userToUpdate) {
       throw new BadRequestException('User not found');
     }
@@ -110,7 +112,7 @@ export class AuthService {
     const updatedUser = await this.userRepository.save(userToUpdate);
 
     // Generate a new JWT token with updated user information
-    const token = jwt.sign({ id: updatedUser.id, email: updatedUser.email, username: updatedUser.username }, this.jwtSecret, { 
+    const token = jwt.sign({ id: user.id, email: updatedUser.email, username: updatedUser.username }, this.jwtSecret, { 
       expiresIn: '1h' 
     });
 
