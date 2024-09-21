@@ -27,8 +27,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  Me(@Request() req) {
-    const response = { user: req.user };
+  async Me(@Request() req) {
+    const response = await this.authService.me(req.user);
     return {  
       data: response,
     };

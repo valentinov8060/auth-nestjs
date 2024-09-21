@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
+// config
 import { ConfigModule, ConfigService } from '@nestjs/config';
+// typeorm
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+// custom module
 import { AuthModule } from './auth/auth.module';
+// entity
 import { User } from './entity';
 
 @Module({
@@ -19,9 +23,9 @@ import { User } from './entity';
         port: configService.get<number>('TYPEORM_PORT'),
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
-        database: 'bitwallet',
+        database: configService.get<string>('TYPEORM_DATABASE'),
         entities: [User],
-        synchronize: false,
+        synchronize: true,
         logging: false,
       }),
     }),

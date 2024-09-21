@@ -30,7 +30,9 @@ Response Body Success (201 Created) :
 Response Body Error (400 Bad Request) :
 ```json
 {
-  "error" : "Username or email already registered"
+  "message": "Email already registered",
+  "error": "Bad Request",
+  "statusCode": 400
 }
 ```
 
@@ -63,7 +65,9 @@ Response Body Success (200 OK) :
 Response Body Error (401 Unauthorized) :
 ```json
 {
-  "error" : "email atau password salah"
+  "message": "Invalid email",
+  "error": "Unauthorized",
+  "statusCode": 401
 }
 ```
 
@@ -90,7 +94,8 @@ Response Body Success (200 OK) :
 Response Body Error (401 Unauthorized) : 
 ```json
 {
-  "error" : "Unauthorized"
+  "message": "Unauthorized",
+  "statusCode": 401
 }
 ```
 
@@ -126,6 +131,11 @@ Response Body Success (200 OK) :
 Response Body Error (400 Bad Request) : 
 ```json
 {
-  "error" : "Username length max 100"
+  "message": [
+    "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+    "Password must be at least 8 characters long"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
 }
 ```

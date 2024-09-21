@@ -26,7 +26,26 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+Authentication project for login and register with Nestjs.
+
 ## Project setup
+
+Make .env.local with this variabel:
+```
+## database
+TYPEORM_HOST=
+TYPEORM_PORT=
+TYPEORM_USERNAME=
+TYPEORM_PASSWORD=
+TYPEORM_DATABASE=
+
+## jwt
+JWT_SECRET=
+## hashids
+HASHIDS_SALT=
+```
+
+and run this
 
 ```bash
 $ npm install

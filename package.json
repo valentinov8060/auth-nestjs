@@ -1,8 +1,8 @@
 {
-  "name": "bitwallet-nestjs",
+  "name": "auth-nestjs",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "valentinov",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

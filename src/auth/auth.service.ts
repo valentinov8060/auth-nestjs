@@ -80,8 +80,28 @@ export class AuthService {
     }
   }
 
+  // Fungsi me
+  async me(user: any): Promise<{ user: { id: string; email: string; username: string; } }> {
+    const [idDecoded] = this.hashids.decode(user.id);
+    const userId = Number(idDecoded);
+    if (!userId) {
+      throw new BadRequestException('Invalid user ID');
+    }
+    const checkUser = await this.userRepository.findOne({ where: { id: userId } });
+    if (!checkUser) {
+      throw new BadRequestException('User not found');
+    }
+    return {
+      user: {
+        id: user.id,
+        email: checkUser.email,
+        username: checkUser.username,
+      }
+    }
+  }
+
   // Fungsi update
-  async update(user: any, reqBody: { username?: string; password?: string }) {
+  async update(user: any, reqBody: { username?: string; password?: string }): Promise<{ token: string; user: { id: string; email: string; username: string; } }> {
     const { username, password } = reqBody;
 
     // Decode the user ID from the token
